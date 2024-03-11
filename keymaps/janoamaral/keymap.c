@@ -70,6 +70,9 @@ void leader_end_user(void) {
     } else if (leader_sequence_one_key(KC_D)) {
         SEND_STRING("{}"SS_TAP(X_LEFT)"");
      // Leader F => {}<left>
+    } else if (leader_sequence_one_key(KC_TAB)) {
+        SEND_STRING("if");
+     // Leader F => {}<left>
     } else if (leader_sequence_one_key(KC_G)) {
         SEND_STRING("func");
     }

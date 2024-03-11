@@ -162,7 +162,7 @@ bool oled_task_kb(void) {
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
-            (keycode, record);
+        set_keylog(keycode, record);
     }
     return process_record_user(keycode, record);
 }
