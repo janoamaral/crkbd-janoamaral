@@ -123,34 +123,34 @@ void leader_end_user(void) {
         tap_code16(LALT(KC_F4));
     // Leader A => =>
     } else if (leader_sequence_one_key(DV_LCBR)) {
-        SEND_STRING("/**");
+        SEND_STRING("/**"SS_TAP(X_ENTER));
     // Leader S => ()<left>
     } else if (leader_sequence_one_key(KC_A)) {
-        SEND_STRING("af");
+        SEND_STRING("map"SS_TAP(X_ENTER));
     // Leader D => []<left>
     } else if (leader_sequence_one_key(KC_S)) {
-        SEND_STRING("tc");
+        SEND_STRING("for"SS_TAP(X_ENTER));
     // Leader F => {}<left>
     } else if (leader_sequence_one_key(KC_D)) {
-        SEND_STRING("te");
+        SEND_STRING("function"SS_TAP(X_ENTER));
      // Leader F => {}<left>
     } else if (leader_sequence_one_key(KC_F)) {
-        SEND_STRING("for");
+        SEND_STRING("if"SS_TAP(X_ENTER));
      // Leader F => {}<left>
     } else if (leader_sequence_one_key(KC_G)) {
-        SEND_STRING("function");
+        SEND_STRING("te"SS_TAP(X_ENTER));
         // Leader F => {}<left>
     } else if (leader_sequence_one_key(DV_LPRN)) {
-        SEND_STRING("cr");
-        // Leader Tab => if
-    } else if (leader_sequence_one_key(KC_TAB)) {
-        SEND_STRING("if");
+        SEND_STRING("cr"SS_TAP(X_ENTER));
         // Leader Tab => if
     } else if (leader_sequence_one_key(KC_DEL)) {
-        SEND_STRING("map");
+        SEND_STRING("ce"SS_TAP(X_ENTER));
+        // Leader Tab => if
+    } else if (leader_sequence_one_key(KC_BSPC)) {
+        SEND_STRING("cl"SS_TAP(X_ENTER));
          // Leader Tab => if
-    } else if (leader_sequence_one_key(DV_SCLN)) {
-        SEND_STRING("cl");
+    } else if (leader_sequence_one_key(KC_TAB)) {
+        SEND_STRING("cv"SS_TAP(X_ENTER));
     }
 }
 //////////////////// end of leader key definitions
@@ -165,7 +165,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       DV_LBRC,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH, KC_RIGHT_PAREN,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                           LT(4,KC_DEL), LT(3,KC_BSPC),LT(5,KC_TAB),   DV_SCLN,LT(1,KC_SPC), MT(MOD_LALT | MOD_RALT,KC_ENT)
+                           LT(4,KC_DEL), LT(3,KC_BSPC),LT(5,KC_TAB),   LT(2,KC_DEL),LT(1,KC_SPC), MT(MOD_LALT | MOD_RALT,KC_ENT)
                                       //`--------------------------'  `--------------------------'
 
   ),
@@ -184,9 +184,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [2] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-      KC_F21, KC_F18,   KC_F7,   KC_F8,   KC_F9, KC_F15,                         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+      KC_F21, KC_F18,   KC_F7,   KC_F8,   KC_F9, KC_F15,                         XXXXXXX, DM_REC1, DM_REC2, XXXXXXX, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_F20, KC_F17,   KC_F4,   KC_F5,   KC_F6, KC_F14,                         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+      KC_F20, KC_F17,   KC_F4,   KC_F5,   KC_F6, KC_F14,                         XXXXXXX, DM_PLY1, DM_PLY2, DM_RSTP, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_F19, KC_F16,   KC_F1,   KC_F2,   KC_F3, KC_F13,                         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
@@ -217,7 +217,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                           XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX, KC_MPLY, KC_MUTE
                                       //`--------------------------'  `--------------------------'
   ),
-       [5] = LAYOUT_split_3x6_3(
+      [5] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
       QK_BOOT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                         REDO,   PASTE,    COPY,     CUT,    UNDO, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
