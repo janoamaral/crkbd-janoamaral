@@ -49,42 +49,6 @@ combo_t key_combos[] = {
 
 
 
-
-//////////////////// Leader key definitions
-// Process leader key sequences
-void leader_end_user(void) {
-
-    // Leader M => Alt+F4
-    if (leader_sequence_one_key(KC_M)) {
-        tap_code16(LALT(KC_F4));
-    // Leader A => =>
-    } else if (leader_sequence_one_key(KC_A)) {
-        SEND_STRING("=> ");
-    // Leader S => ()<left>
-    } else if (leader_sequence_one_key(KC_F)) {
-        SEND_STRING("()"SS_TAP(X_LEFT)"");
-    // Leader D => []<left>
-    } else if (leader_sequence_one_key(KC_S)) {
-        SEND_STRING("[]"SS_TAP(X_LEFT)"");
-    // Leader F => {}<left>
-    } else if (leader_sequence_one_key(KC_D)) {
-        SEND_STRING("{}"SS_TAP(X_LEFT)"");
-     // Leader F => {}<left>
-    } else if (leader_sequence_one_key(KC_TAB)) {
-        SEND_STRING("if");
-     // Leader F => {}<left>
-    } else if (leader_sequence_one_key(KC_G)) {
-        SEND_STRING("func");
-    }
-}
-//////////////////// end of leader key definitions
-
-
-
-
-
-
-
 //////////////////// Macros definitions
 enum custom_keycodes {
     COPY = SAFE_RANGE,
@@ -148,29 +112,73 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 //////////////////// end of leader key sequences
 
 
+
+
+//////////////////// Leader key definitions
+// Process leader key sequences
+void leader_end_user(void) {
+
+    // Leader M => Alt+F4
+    if (leader_sequence_one_key(KC_M)) {
+        tap_code16(LALT(KC_F4));
+    // Leader A => =>
+    } else if (leader_sequence_one_key(DV_LCBR)) {
+        SEND_STRING("/**");
+    // Leader S => ()<left>
+    } else if (leader_sequence_one_key(KC_A)) {
+        SEND_STRING("af");
+    // Leader D => []<left>
+    } else if (leader_sequence_one_key(KC_S)) {
+        SEND_STRING("tc");
+    // Leader F => {}<left>
+    } else if (leader_sequence_one_key(KC_D)) {
+        SEND_STRING("te");
+     // Leader F => {}<left>
+    } else if (leader_sequence_one_key(KC_F)) {
+        SEND_STRING("for");
+     // Leader F => {}<left>
+    } else if (leader_sequence_one_key(KC_G)) {
+        SEND_STRING("function");
+        // Leader F => {}<left>
+    } else if (leader_sequence_one_key(DV_LPRN)) {
+        SEND_STRING("cr");
+        // Leader Tab => if
+    } else if (leader_sequence_one_key(KC_TAB)) {
+        SEND_STRING("if");
+        // Leader Tab => if
+    } else if (leader_sequence_one_key(KC_DEL)) {
+        SEND_STRING("map");
+         // Leader Tab => if
+    } else if (leader_sequence_one_key(DV_SCLN)) {
+        SEND_STRING("cl");
+    }
+}
+//////////////////// end of leader key definitions
+
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-      XXXXXXX,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                         KC_Y,    KC_U,    KC_I,    KC_O,   KC_P,  KC_LEFT_BRACKET,
+      DV_LCBR,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                         KC_Y,    KC_U,    KC_I,    KC_O,   KC_P,  KC_LEFT_BRACKET,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      QK_LEAD,  HOME_A,  HOME_S,  HOME_D,  HOME_F,    KC_G,                         KC_H,  HOME_J,  HOME_K,  HOME_L,HOME_SCLN,LT(2,KC_QUOT),
+      DV_LPRN,  HOME_A,  HOME_S,  HOME_D,  HOME_F,    KC_G,                         KC_H,  HOME_J,  HOME_K,  HOME_L,HOME_SCLN,LT(2,KC_QUOT),
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LSFT,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH, KC_RIGHT_PAREN,
+      DV_LBRC,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH, KC_RIGHT_PAREN,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                           LT(4,KC_DEL), LT(3,KC_BSPC),LT(5,KC_TAB),   QK_LEAD,LT(1,KC_SPC), MT(MOD_LALT | MOD_RALT,KC_ENT)
+                           LT(4,KC_DEL), LT(3,KC_BSPC),LT(5,KC_TAB),   DV_SCLN,LT(1,KC_SPC), MT(MOD_LALT | MOD_RALT,KC_ENT)
                                       //`--------------------------'  `--------------------------'
 
   ),
 
     [1] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-      XXXXXXX, DV_LBRC,  KC_7,    KC_8,    KC_9,   DV_RBRC,                    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+      DV_RCBR, KC_RBRC,    KC_7,    KC_8,    KC_9, KC_PMNS,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      XXXXXXX, DV_SCLN,    KC_4,    KC_5,    KC_6,KC_RIGHT_PAREN,                XXXXXXX, KC_LGUI, KC_RALT, KC_LCTL, KC_LSFT, XXXXXXX,
+      DV_RPRN, DV_SCLN,    KC_4,    KC_5,    KC_6, KC_RIGHT_PAREN,               XXXXXXX, KC_LGUI, KC_RALT, KC_LCTL, KC_LSFT, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      XXXXXXX,KC_LEFT_BRACKET,KC_1, KC_2,    KC_3, DV_BSLS,               KC_RIGHT_PAREN, KC_RBRC, KC_PMNS, KC_PAST, KC_AMPERSAND, XXXXXXX,
+      DV_RBRC, KC_PAST,    KC_1,    KC_2,    KC_3, KC_AMPERSAND,                 XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          XXXXXXX, KC_0, XXXXXXX,     XXXXXXX,  XXXXXXX, XXXXXXX
+                                          DV_LABK, KC_0, DV_RABK,     XXXXXXX,  XXXXXXX, XXXXXXX
                                       //`--------------------------'  `--------------------------'
   ),
 
