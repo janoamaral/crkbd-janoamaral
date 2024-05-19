@@ -17,25 +17,25 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include QMK_KEYBOARD_H
-#include "keymap_spanish_dvorak.h"
-#include "sendstring_spanish_dvorak.h"
+#include "keymap_spanish_latin_america.h"
+#include "sendstring_spanish_latin_america.h"
 
 // Left-hand home row mods
 #define HOME_A LSFT_T(KC_A)
-#define HOME_S LCTL_T(KC_S)
-#define HOME_D LALT_T(KC_D)
-#define HOME_F LGUI_T(KC_F)
+#define HOME_O LCTL_T(KC_O)
+#define HOME_E LALT_T(KC_E)
+#define HOME_U LGUI_T(KC_U)
 
 // Right-hand home row mods
-#define HOME_J LGUI_T(KC_J)
-#define HOME_K LALT_T(KC_K)
-#define HOME_L LCTL_T(KC_L)
-#define HOME_SCLN LSFT_T(KC_SCLN)
+#define HOME_R LGUI_T(KC_R)
+#define HOME_T LALT_T(KC_T)
+#define HOME_N LCTL_T(KC_N)
+#define HOME_S LSFT_T(KC_S)
 
 
 //////////////////// Combo key definitions
-const uint16_t PROGMEM test_combo1[] = {HOME_F, HOME_D, COMBO_END};
-const uint16_t PROGMEM leader_combo[] = {HOME_J, HOME_K, COMBO_END};
+const uint16_t PROGMEM test_combo1[] = {HOME_U, HOME_E, COMBO_END};
+const uint16_t PROGMEM leader_combo[] = {HOME_R, HOME_T, COMBO_END};
 
 combo_t key_combos[] = {
     COMBO(test_combo1, KC_ESC),
@@ -122,8 +122,8 @@ void leader_end_user(void) {
     if (leader_sequence_one_key(KC_M)) {
         tap_code16(LALT(KC_F4));
     // Leader A => =>
-    } else if (leader_sequence_one_key(DV_LCBR)) {
-        SEND_STRING("/**"SS_TAP(X_ENTER));
+    // } else if (leader_sequence_one_key(DV_LCBR)) {
+    //     SEND_STRING("/**"SS_TAP(X_ENTER));
     // Leader S => ()<left>
     } else if (leader_sequence_one_key(KC_A)) {
         SEND_STRING("map"SS_TAP(X_ENTER));
@@ -140,8 +140,8 @@ void leader_end_user(void) {
     } else if (leader_sequence_one_key(KC_G)) {
         SEND_STRING("te"SS_TAP(X_ENTER));
         // Leader F => {}<left>
-    } else if (leader_sequence_one_key(DV_LPRN)) {
-        SEND_STRING("cr"SS_TAP(X_ENTER));
+    // } else if (leader_sequence_one_key(DV_LPRN)) {
+    //     SEND_STRING("cr"SS_TAP(X_ENTER));
         // Leader Tab => if
     } else if (leader_sequence_one_key(KC_DEL)) {
         SEND_STRING("ce"SS_TAP(X_ENTER));
@@ -159,26 +159,26 @@ void leader_end_user(void) {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-      KC_PGUP,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                         KC_Y,    KC_U,    KC_I,    KC_O,   KC_P,  KC_LEFT_BRACKET,
+      KC_PGUP,  KC_DOT,KC_COMMA, ES_NTIL,    KC_P,    KC_Y,                         KC_F,    KC_G,    KC_C,    KC_H,   KC_L,   ES_GRV,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_HOME,  HOME_A,  HOME_S,  HOME_D,  HOME_F,    KC_G,                         KC_H,  HOME_J,  HOME_K,  HOME_L,HOME_SCLN,LT(2,KC_QUOT),
+      KC_HOME,  HOME_A,  HOME_O,  HOME_E,  HOME_U,    KC_I,                         KC_D,  HOME_R,  HOME_T,  HOME_N,HOME_S,   ES_ACUT,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_PGDN,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH, DM_PLY2,
+      KC_PGDN, ES_MINS,    KC_Q,    KC_J,    KC_K,    KC_X,                         KC_B,    KC_M,    KC_W,    KC_V,    KC_Z, DM_PLY2,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                           LT(5,KC_DEL), LT(3,KC_BSPC),LT(4,KC_TAB),   LT(2,DV_SCLN),LT(1,KC_SPC), MT(MOD_LALT | MOD_RALT,KC_ENT)
+                           LT(5,KC_DEL), LT(3,KC_BSPC),LT(4,KC_TAB),   LT(2,ES_SCLN),LT(1,KC_SPC), MT(MOD_LALT | MOD_RALT,KC_ENT)
                                       //`--------------------------'  `--------------------------'
 
   ),
 
     [1] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-      DV_RCBR, KC_RBRC,    KC_7,    KC_8,    KC_9, KC_PMNS,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+      ES_PLUS, ES_LBRC,    KC_7,    KC_8,    KC_9, ES_RBRC,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      DV_RPRN, DV_SCLN,    KC_4,    KC_5,    KC_6, KC_RIGHT_PAREN,               XXXXXXX, KC_LGUI, KC_RALT, KC_LCTL, KC_LSFT, XXXXXXX,
+      ES_MINS, ES_SCLN,    KC_4,    KC_5,    KC_6,  ES_EQL,                      XXXXXXX, KC_LGUI, KC_RALT, KC_LCTL, KC_LSFT, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      DV_RBRC, KC_PAST,    KC_1,    KC_2,    KC_3, KC_AMPERSAND,                 XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+      ES_ASTR, KC_PAST,    KC_1,    KC_2,    KC_3, KC_BACKSLASH,                 XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                            DV_AT,  KC_0, DV_AMPR,     XXXXXXX,  XXXXXXX, XXXXXXX
+                                            ES_AT,  KC_0,    ES_DLR,    XXXXXXX, XXXXXXX, XXXXXXX
                                       //`--------------------------'  `--------------------------'
   ),
 
