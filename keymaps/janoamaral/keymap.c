@@ -17,8 +17,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include QMK_KEYBOARD_H
-#include "keymap_spanish_latin_america.h"
-#include "sendstring_spanish_latin_america.h"
+#include "keymap_spanish.h"
+#include "sendstring_spanish.h"
 
 // Left-hand home row mods
 #define HOME_A LSFT_T(KC_A)
@@ -178,7 +178,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       ES_ASTR, ES_ASTR,    KC_1,    KC_2,    KC_3, KC_BACKSLASH,                 XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                            ES_AT,  KC_0,    ES_DLR,    XXXXXXX, XXXXXXX, XXXXXXX
+                                          ES_PLUS, KC_0, ES_MINS,       XXXXXXX, XXXXXXX, XXXXXXX
                                       //`--------------------------'  `--------------------------'
   ),
 
@@ -202,7 +202,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      KC_INS, KC_HOME, KC_PGDN,  KC_PGUP,  KC_END, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX, XXXXXXX, XXXXXXX
+                                          XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX, XXXXXXX, KC_TRNS
                                       //`--------------------------'  `--------------------------'
   ),
 
@@ -230,13 +230,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
       [6] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-      XXXXXXX, XXXXXXX, ES_BSLS, ES_LBRC, ES_RBRC, XXXXXXX,                      XXXXXXX, XXXXXXX, ES_IQUE, ES_QUES,  ES_DLR, XXXXXXX,
+      XXXXXXX, XXXXXXX, ES_PERC, ES_IQUE, ES_QUES, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX,  ES_DLR, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      ES_NUMB,  ES_EQL, ES_SLSH, ES_LABK, ES_RABK, ES_QUOT,                      ES_DQUO, ES_LCBR, ES_RCBR, ES_ASTR, ES_SCLN, ES_TILD,
+      XXXXXXX,  ES_EQL, ES_SLSH, ES_LABK, ES_RABK, ES_QUOT,                      ES_TILD, ES_LCBR, ES_RCBR, ES_ASTR, LT(7,ES_SCLN), XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      XXXXXXX, XXXXXXX, ES_PIPE, ES_LPRN, ES_RPRN, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+      XXXXXXX, XXXXXXX, XXXXXXX, ES_LBRC, ES_RBRC, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                            ES_AT, ES_IEXL, ES_EXLM,    XXXXXXX, XXXXXXX, XXXXXXX
+                                            ES_AT, ES_SCLN, ES_AMPR,    XXXXXXX, XXXXXXX, XXXXXXX
+                                      //`--------------------------'  `--------------------------'
+  ),
+      [7] = LAYOUT_split_3x6_3(
+  //,-----------------------------------------------------.                    ,-----------------------------------------------------.
+      XXXXXXX, XXXXXXX, XXXXXXX, ES_IEXL, ES_EXLM, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+      XXXXXXX, ES_HASH, ES_BSLS, ES_LPRN, ES_RPRN, ES_DQUO,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+  //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
+                                          XXXXXXX, ES_PIPE, XXXXXXX,    XXXXXXX, XXXXXXX, XXXXXXX
                                       //`--------------------------'  `--------------------------'
   )
 };
