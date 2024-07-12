@@ -56,6 +56,7 @@ enum custom_keycodes {
     PASTE,
     UNDO,
     REDO,
+    SELECT_ALL,
 };
 
 // Process macros
@@ -101,6 +102,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed){
         // Cuando se pulsa la tecla con el keycode seleccionado
         SEND_STRING(SS_LCTL("y"));
+      } else {
+        // Cuando la tecla es liberada
+        clear_keyboard();
+      }
+      break;
+    case SELECT_ALL:
+      if (record->event.pressed){
+        // Cuando se pulsa la tecla con el keycode seleccionado
+        SEND_STRING(SS_LCTL("a"));
       } else {
         // Cuando la tecla es liberada
         clear_keyboard();
@@ -170,7 +180,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   ),
 
-    [1] = LAYOUT_split_3x6_3(
+    [1] = LAYOUT_split_3x6_3( // NUMERIC
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
       ES_PLUS, ES_PLUS,    KC_7,    KC_8,    KC_9, ES_RBRC,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
@@ -182,7 +192,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                       //`--------------------------'  `--------------------------'
   ),
 
-    [2] = LAYOUT_split_3x6_3(
+    [2] = LAYOUT_split_3x6_3( // FUNCTION
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
       KC_F21, KC_F18,   KC_F7,   KC_F8,   KC_F9, KC_F15,                         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
@@ -194,7 +204,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                       //`--------------------------'  `--------------------------'
   ),
 
-    [3] = LAYOUT_split_3x6_3(
+    [3] = LAYOUT_split_3x6_3( // MOVEMENT
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                         REDO,   PASTE,    COPY,     CUT,    UNDO, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
@@ -206,18 +216,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                       //`--------------------------'  `--------------------------'
   ),
 
-      [4] = LAYOUT_split_3x6_3(
+      [4] = LAYOUT_split_3x6_3( // MULTIMEDIA
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX, KC_WBAK, KC_WREF, KC_WSCH, KC_WFWD, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      XXXXXXX, KC_WSCH, KC_WFWD, KC_WREF, KC_WBAK, XXXXXXX,                      XXXXXXX, KC_MNXT, KC_VOLD, KC_VOLU,KC_MPRV, XXXXXXX,
+    XXXXXXX,SELECT_ALL,   PASTE,     CUT,    COPY, XXXXXXX,                      XXXXXXX, KC_MNXT, KC_VOLD, KC_VOLU,KC_MPRV, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX, KC_MPLY, KC_MUTE
           //`--------------------------'  `--------------------------'
   ),
-      [5] = LAYOUT_split_3x6_3(
+      [5] = LAYOUT_split_3x6_3( // MOUSE
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
       QK_BOOT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                         REDO,   PASTE,    COPY,     CUT,    UNDO, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
@@ -228,18 +238,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                           XXXXXXX, XXXXXXX, XXXXXXX,    KC_BTN3, KC_BTN2, KC_BTN1
                                       //`--------------------------'  `--------------------------'
   ),
-      [6] = LAYOUT_split_3x6_3(
+      [6] = LAYOUT_split_3x6_3( // SYMBOLS 1
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-      XXXXXXX, XXXXXXX, ES_PERC, ES_IQUE, ES_QUES, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX,  ES_DLR, XXXXXXX, XXXXXXX,
+      XXXXXXX, XXXXXXX, ES_PERC, ES_IQUE, ES_QUES, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      XXXXXXX,  ES_EQL, ES_SLSH, ES_LABK, ES_RABK, ES_QUOT,                      ES_TILD, ES_LCBR, ES_RCBR, ES_ASTR, LT(7,ES_SCLN), XXXXXXX,
+      ES_TILD,  ES_EQL, ES_SLSH, ES_LABK, ES_RABK, ES_QUOT,                       ES_DLR, ES_LCBR, ES_RCBR, ES_ASTR, LT(7,ES_SCLN), XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       XXXXXXX, XXXXXXX, XXXXXXX, ES_LBRC, ES_RBRC, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                             ES_AT, ES_SCLN, ES_AMPR,    XXXXXXX, XXXXXXX, XXXXXXX
                                       //`--------------------------'  `--------------------------'
   ),
-      [7] = LAYOUT_split_3x6_3(
+      [7] = LAYOUT_split_3x6_3( // SYMBOLS 2
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
       XXXXXXX, XXXXXXX, XXXXXXX, ES_IEXL, ES_EXLM, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
