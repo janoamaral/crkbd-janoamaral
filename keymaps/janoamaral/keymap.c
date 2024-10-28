@@ -57,6 +57,7 @@ enum custom_keycodes {
     UNDO,
     REDO,
     SELECT_ALL,
+    BOOST,
 };
 
 // Process macros
@@ -116,6 +117,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         clear_keyboard();
       }
       break;
+    case BOOST:
+      if (record->event.pressed){
+        SEND_STRING(SS_TAP(X_F5)SS_TAP(X_R));
+      } else {
+        // Cuando la tecla es liberada
+        clear_keyboard();
+      }
+      break;
   }
   return true;
 };
@@ -165,17 +174,16 @@ void leader_end_user(void) {
 }
 //////////////////// end of leader key definitions
 
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-       KC_F10,  KC_DOT,KC_COMMA, ES_NTIL,    KC_P,    KC_Y,                         KC_F,    KC_G,    KC_C,    KC_H,   KC_L,   ES_GRV,
+         TG(8),  KC_DOT,KC_COMMA, ES_NTIL,    KC_P,    KC_Y,                         KC_F,    KC_G,    KC_C,    KC_H,   KC_L,  ES_GRV,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-       KC_F12,  HOME_A,  HOME_O,  HOME_E,  HOME_U,    KC_I,                         KC_D,  HOME_R,  HOME_T,  HOME_N,HOME_S,   ES_ACUT,
+       KC_VOLU,  HOME_A,  HOME_O,  HOME_E,  HOME_U,    KC_I,                         KC_D,  HOME_R,  HOME_T,  HOME_N,HOME_S,  ES_ACUT,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-       KC_F11, ES_MINS,    KC_Q,    KC_J,    KC_K,    KC_X,                         KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,  KC_F13,
+       KC_VOLD, ES_MINS,    KC_Q,    KC_J,    KC_K,    KC_X,                         KC_B,    KC_M,    KC_W,    KC_V,   KC_Z, KC_MUTE,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                           LT(5,KC_DEL), LT(3,KC_BSPC),LT(4,KC_TAB),   LT(2,ES_SCLN),LT(1,KC_SPC), LT(6,KC_ENT)
+                           LT(5,KC_DEL), LT(3,KC_BSPC),LT(4,KC_TAB),   LT(2,KC_MPLY),LT(1,KC_SPC), LT(6,KC_ENT)
                                       //`--------------------------'  `--------------------------'
 
   ),
@@ -259,6 +267,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           XXXXXXX, ES_PIPE, XXXXXXX,    XXXXXXX, XXXXXXX, XXXXXXX
                                       //`--------------------------'  `--------------------------'
+  ),
+      [8] = LAYOUT_split_3x6_3(
+  //,-----------------------------------------------------.                    ,-----------------------------------------------------.
+       _______,    KC_Q,    KC_W,   KC_E,     KC_R,    KC_T,                         KC_Y,    KC_U,    KC_I,    KC_O,   KC_P,  ES_GRV,
+  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+       KC_TAB,    KC_A,    KC_S,   KC_D,     KC_F,    KC_G,                         KC_H,    KC_J,    KC_K,    KC_L,KC_SCLN, ES_ACUT,
+  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+      KC_LSFT,    KC_Z,    KC_X,   KC_C,     KC_V,    KC_B,                         KC_N,    KC_M, KC_COMM,  KC_DOT,KC_SLSH, KC_RSFT,
+  //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
+                                            KC_F5,   KC_SPC,  BOOST,     KC_F12,  KC_SPC,   KC_ENT
+                                      //`--------------------------'  `--------------------------'
+
   )
 };
 
